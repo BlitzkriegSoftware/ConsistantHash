@@ -91,16 +91,6 @@
             <param name="node">of <c>T</c></param>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
-        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.GetNode_slow(System.String)">
-            <summary>
-            GetNode_slow
-            <para>
-            we keep this function just for performance compare
-            </para>
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
         <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.First_ge(System.Int32[],System.Int32)">
             <summary>
             return the index of first item that >= val, if not exist, return 0.
@@ -108,7 +98,7 @@
             <param name="ay">ay should be ordered array</param>
             <param name="val">find first mapped node</param>
             <returns></returns>
-            <exception cref="T:System.InvalidOperationException">Stuff that should never happen</exception>
+            <exception cref="T:System.IndexOutOfRangeException">Stuff that should never happen</exception>
         </member>
         <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.MapKeyToNode(System.String)">
             <summary>

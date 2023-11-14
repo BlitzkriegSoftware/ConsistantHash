@@ -61,7 +61,8 @@ namespace WSQ003.ConsistentHash.Library.Tests
             #endregion
 
             // --- Act
-            ConsistentHash<Server> ch = new(servers);
+            int replicas = ConsistentHash<Server>.DefaultReplicateCount / 10;
+            ConsistentHash<Server> ch = new(servers, replicas);
 
             #region "Map keys to nodes"
             foreach (var key in keys)

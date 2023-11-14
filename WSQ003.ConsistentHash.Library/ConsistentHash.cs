@@ -133,37 +133,12 @@ namespace WSQ003.ConsistentHash.Library
         }
 
         /// <summary>
-        /// GetNode_slow
-        /// <para>
-        /// we keep this function just for performance compare
-        /// </para>
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private T GetNode_slow(String key)
-        {
-            int hash = MurmurHash2.BetterHash(key);
-            if (circle.ContainsKey(hash))
-            {
-                return circle[hash];
-            }
-
-            int first = circle.Keys.FirstOrDefault(h => h >= hash);
-            if (first == new int())
-            {
-                first = ayKeys[0];
-            }
-            T node = circle[first];
-            return node;
-        }
-
-        /// <summary>
         /// return the index of first item that >= val, if not exist, return 0.
         /// </summary>
         /// <param name="ay">ay should be ordered array</param>
         /// <param name="val">find first mapped node</param>
         /// <returns></returns>
-        /// <exception cref="InvalidOperationException">Stuff that should never happen</exception>
+        /// <exception cref="IndexOutOfRangeException">Stuff that should never happen</exception>
         private static int First_ge(int[] ay, int val)
         {
             int begin = 0;
@@ -192,7 +167,7 @@ namespace WSQ003.ConsistentHash.Library
 
             if (ay[begin] > val || ay[end] < val)
             {
-                throw new InvalidOperationException("should not happen");
+                throw new IndexOutOfRangeException($"Should never happen: {ay[begin]}<= {val} <= {ay[end]}");
             }
 
             return end;
@@ -209,14 +184,8 @@ namespace WSQ003.ConsistentHash.Library
         /// <returns>Type of <c>T</c></returns>
         public T MapKeyToNode(string key)
         {
-            //return GetNode_slow(key);
-
             int hash = MurmurHash2.BetterHash(key);
-
             int first = First_ge(ayKeys, hash);
-
-            //int diff = circle.Keys[first] - hash;
-
             return circle[ayKeys[first]];
         }
 
