@@ -37,6 +37,9 @@
 		<PackageReleaseNotes>1.0.1 - Initial port from WSQ003</PackageReleaseNotes>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisLevel>5.0-minimum</AnalysisLevel>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -46,6 +49,10 @@
 	<ItemGroup>
 	  <None Include="..\.editorconfig" Link=".editorconfig" />
 	  <None Include="..\blizkrieglogo300_50.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\LICENSE">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
