@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<InformationalVersion>2022.03.02</InformationalVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ProductName>WSQ003.ConsistentHash.Library</ProductName>
+		<Authors>WSQ003; Small mods by Stuart Williams</Authors>
+		<Description>A Library Version of WSQ003 Consistant Hashing</Description>
+		<RepositoryUrl>https://github.com/wsq003/consistent-hash</RepositoryUrl>
+		<RepositoryType>GITHUB</RepositoryType>
+	</PropertyGroup>
+	
+</Project>
