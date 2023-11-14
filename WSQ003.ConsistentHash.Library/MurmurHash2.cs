@@ -5,31 +5,32 @@ using System.Text;
 namespace WSQ003.ConsistentHash.Library
 {
     /// <summary>
-    /// <![CDATA[https://github.com/wsq003/consistent-hash]]>
+    /// <![CDATA[https://en.wikipedia.org/wiki/MurmurHash]]>
+    /// <para>This is a non-cryptographic hash designed to evenly distribute</para>
     /// </summary>
-    public class MurmurHash2
+    public static class MurmurHash2
     {
-        const UInt32 defaultSeed = 0xc58f1a7b;
-        const UInt32 m = 0x5bd1e995;
-        const Int32 r = 24;
+        private const UInt32 defaultSeed = 0xc58f1a7b;
+        private const UInt32 m = 0x5bd1e995;
+        private const Int32 r = 24;
 
         /// <summary>
         /// CTOR w. <c>defaultSeed</c>
         /// </summary>
         /// <param name="data">(data)</param>
         /// <returns>hash</returns>
-        public static UInt32 Hash(Byte[] data)
+        public static UInt32 Hash(byte[] data)
         {
             return Hash(data, defaultSeed);
         }
 
         /// <summary>
-        /// 
+        /// Murmur 2 Hash with DIY Seed
         /// </summary>
         /// <param name="data">(data)</param>
         /// <param name="seed">seed</param>
-        /// <returns>hash</returns>
-        public static UInt32 Hash(Byte[] data, UInt32 seed)
+        /// <returns>Murmer 2 Hash</returns>
+        public static UInt32 Hash(byte[] data, UInt32 seed)
         {
             Int32 length = data.Length;
             if (length == 0)
@@ -38,7 +39,8 @@ namespace WSQ003.ConsistentHash.Library
             Int32 currentIndex = 0;
 
             // array will be length of Bytes but contains Uints
-            // therefore the currentIndex will jump with +1 while length will jump with +4
+            // therefore the currentIndex will jump with +1
+            // while length will jump with +4
 
             UInt32[] hackArray = new BytetoUInt32Converter { Bytes = data }.UInts;
             while (length >= 4)
@@ -81,16 +83,18 @@ namespace WSQ003.ConsistentHash.Library
             return h;
         }
 
-
         /// <summary>
-        /// BetterHash
+        /// BetterHash that usual XOR
         /// <para>
-        /// default String.GetHashCode() can't well spread strings like "1", "2", "3"
+        /// The default String.GetHashCode() can't well spread strings like "1", "2", "3"
+        /// </para>
+        /// <para>
+        /// Uses <c>MurmurHash2</c>
         /// </para>
         /// </summary>
         /// <param name="key">Key</param>
         /// <returns>Better Hash</returns>
-        public static int BetterHash(String key)
+        public static int BetterHash(string key)
         {
             uint hash = MurmurHash2.Hash(Encoding.ASCII.GetBytes(key));
             return (int)hash;

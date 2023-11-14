@@ -1,8 +1,11 @@
-﻿namespace WSQ003.ConsistentHash.Library.Tests.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace WSQ003.ConsistentHash.Library.Tests.Models
 {
     /// <summary>
     /// Test Class
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Server
     {
         #region "CTOR"

@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\spook\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.8\contentFiles\any\netstandard2.1\BlitzkriegSoftware.SecureRandomLibrary.md" />
+    <Content Remove="C:\Users\spook\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.8\contentFiles\any\netstandard2.1\BlitzkriegSoftware.SecureRandomLibrary.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlitzkriegSoftware.SecureRandomLibrary" Version="1.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace WSQ003.ConsistentHash.Library.Tests.Libs
     /// <![CDATA[http://warrenseen.com/blog/2006/03/13/how-to-calculate-standard-deviation/]]>
     /// </para>
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class StatsHelper
     {
         /// <summary>

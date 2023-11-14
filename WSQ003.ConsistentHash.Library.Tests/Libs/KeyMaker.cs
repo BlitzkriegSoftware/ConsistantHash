@@ -1,4 +1,5 @@
 ﻿using BlitzkriegSoftware.SecureRandomLibrary;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace WSQ003.ConsistentHash.Library.Tests.Libs
@@ -6,6 +7,7 @@ namespace WSQ003.ConsistentHash.Library.Tests.Libs
     /// <summary>
     /// Key Maker
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class KeyMaker
     {
         /// <summary>

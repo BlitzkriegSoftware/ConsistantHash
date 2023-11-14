@@ -119,7 +119,8 @@
         </member>
         <member name="T:WSQ003.ConsistentHash.Library.MurmurHash2">
             <summary>
-            <![CDATA[https://github.com/wsq003/consistent-hash]]>
+            <![CDATA[https://en.wikipedia.org/wiki/MurmurHash]]>
+            <para>This is a non-cryptographic hash designed to evenly distribute</para>
             </summary>
         </member>
         <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.Hash(System.Byte[])">
@@ -131,17 +132,20 @@
         </member>
         <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.Hash(System.Byte[],System.UInt32)">
             <summary>
-            
+            Murmur 2 Hash with DIY Seed
             </summary>
             <param name="data">(data)</param>
             <param name="seed">seed</param>
-            <returns>hash</returns>
+            <returns>Murmer 2 Hash</returns>
         </member>
         <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.BetterHash(System.String)">
             <summary>
-            BetterHash
+            BetterHash that usual XOR
             <para>
-            default String.GetHashCode() can't well spread strings like "1", "2", "3"
+            The default String.GetHashCode() can't well spread strings like "1", "2", "3"
+            </para>
+            <para>
+            Uses <c>MurmurHash2</c>
             </para>
             </summary>
             <param name="key">Key</param>
