@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WSQ003.ConsistentHash.Library.Tests.Models
+﻿namespace WSQ003.ConsistentHash.Library.Tests.Models
 {
     /// <summary>
     /// Test Class
@@ -35,6 +29,11 @@ namespace WSQ003.ConsistentHash.Library.Tests.Models
         /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Count of mapped keys
+        /// </summary>
+        public double Count { get; set; }
+
         #endregion
 
         #region "Overrides"
@@ -52,17 +51,17 @@ namespace WSQ003.ConsistentHash.Library.Tests.Models
         /// <summary>
         /// To String
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Server Name</returns>
         public override string ToString()
         {
-            return $"Id: {this.Id}";
+            return $"Id: {this.Id}, Count: {this.Count}";
         }
 
         /// <summary>
         /// Equals
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">Thing to test</param>
+        /// <returns>Equals</returns>
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
@@ -71,6 +70,5 @@ namespace WSQ003.ConsistentHash.Library.Tests.Models
         }
 
         #endregion
-
     }
 }

@@ -3,18 +3,56 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<InformationalVersion>2022.03.02</InformationalVersion>
+		<Version>1.0.1</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<ProductName>WSQ003.ConsistentHash.Library</ProductName>
 		<Authors>WSQ003; Small mods by Stuart Williams</Authors>
 		<Description>A Library Version of WSQ003 Consistant Hashing</Description>
-		<RepositoryUrl>https://github.com/wsq003/consistent-hash</RepositoryUrl>
+		<RepositoryUrl>https://github.com/BlitzkriegSoftware/ConsistantHash</RepositoryUrl>
 		<RepositoryType>GITHUB</RepositoryType>
+		<ApplicationIcon>BlitzkriegSoftware.ico</ApplicationIcon>
+		<DocumentationFile>.\WSQ003.ConsistentHash.Library.xml</DocumentationFile>
+		<Title>Consistant Hash Library by WSQ003</Title>
+		<Copyright>(c) 2012 WSQ001, 2013 Stuart Williams</Copyright>
+		<PackageProjectUrl>https://github.com/BlitzkriegSoftware/ConsistantHash</PackageProjectUrl>
+		<PackageIcon>blizkrieglogo300_50.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>Consistant Hash</PackageTags>
+		<PackageReleaseNotes>1.0.1 - Initial port from WSQ003</PackageReleaseNotes>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<AnalysisLevel>5.0-minimum</AnalysisLevel>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="BlitzkriegSoftware.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	  <None Include="..\blizkrieglogo300_50.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 	
 </Project>

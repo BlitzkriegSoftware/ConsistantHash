@@ -11,74 +11,98 @@ namespace WSQ003.ConsistentHash.Library
     /// <typeparam name="T">Type</typeparam>
     public class ConsistentHash<T> where T : class, new()
     {
+        #region Fields, etc."
         /// <summary>
         /// Sorted Dictionary Representing Circle for Consistant Hash
         /// </summary>
         private readonly SortedDictionary<int, T> circle = new SortedDictionary<int, T>();
 
         /// <summary>
-        /// default _replicate count
+        /// default: replicate count
         /// </summary>
-        int _replicate = 100;
+        public const int DefaultReplicateCount = 100;
+
+        /// <summary>
+        /// Replacate Count
+        /// </summary>
+        public int ReplacateCount { get; set; }
 
         /// <summary>
         /// cache the ordered keys for better performance
         /// </summary>
         int[] ayKeys;
+        #endregion
 
+        #region "CTOR"
+
+        /// <summary>
+        /// CTOR
+        /// <para>Follow by a call to <c>Init</c></para>
+        /// </summary>
         public ConsistentHash()
         {
-            ayKeys = new int[_replicate];
+            this.ReplacateCount = DefaultReplicateCount;
+            ayKeys = new int[this.ReplacateCount];
+        }
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="nodes">List of Thing to CH</param>
+        public ConsistentHash(IEnumerable<T> nodes): this()
+        {
+            this.ReplacateCount = DefaultReplicateCount;
+            Init(nodes, this.ReplacateCount);
+        }
+
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="nodes">List of Thing to CH</param>
+        /// <param name="replacateCount">Replicates</param>
+        public ConsistentHash(IEnumerable<T> nodes, int replacateCount)
+        {
+            this.ReplacateCount = replacateCount;
+            Init(nodes, replacateCount);
         }
 
         /// <summary>
         /// Init
-        /// <para>
-        /// it's better you override the GetHashCode() of T.
-        /// </para>
-        /// <para>
-        /// we will use GetHashCode() to identify different node.
-        /// </para>
         /// </summary>
         /// <param name="nodes">List of T</param>
-        public void Init(IEnumerable<T> nodes)
+        /// <param name="replicateCount">Replacate Count</param>
+        private void Init(IEnumerable<T> nodes, int replicateCount)
         {
-            Init(nodes, _replicate);
-        }
-
-        /// <summary>
-        /// Init
-        /// </summary>
-        /// <param name="nodes">List of T</param>
-        /// <param name="replicate"></param>
-        public void Init(IEnumerable<T> nodes, int replicate)
-        {
-            _replicate = replicate;
+            this.ReplacateCount = replicateCount;
 
             foreach (T node in nodes)
             {
-                this.Add(node, false);
+                this.AddNode(node, false);
             }
             ayKeys = circle.Keys.ToArray();
         }
 
+        #endregion
+
+        #region "Methods"
+
         /// <summary>
-        /// Add
+        /// AddNode
         /// </summary>
         /// <param name="node">Node</param>
-        public void Add(T node)
+        public void AddNode(T node)
         {
-            Add(node, true);
+            AddNode(node, true);
         }
 
         /// <summary>
-        /// Add node of type <c>T</c>
+        /// AddNode node of type <c>T</c>
         /// </summary>
         /// <param name="node"></param>
         /// <param name="updateKeyArray">true by default</param>
-        private void Add(T node, bool updateKeyArray)
+        private void AddNode(T node, bool updateKeyArray)
         {
-            for (int i = 0; i < _replicate; i++)
+            for (int i = 0; i < this.ReplacateCount; i++)
             {
                 int hash = MurmurHash2.BetterHash(node.GetHashCode().ToString() + i);
                 circle[hash] = node;
@@ -91,17 +115,18 @@ namespace WSQ003.ConsistentHash.Library
         }
 
         /// <summary>
-        /// Remove a node
+        /// Remove Node 
         /// </summary>
-        /// <param name="node"><c>Ts</c></param>
-        public void Remove(T node)
+        /// <param name="node">of <c>T</c></param>
+        /// <exception cref="InvalidOperationException"></exception>
+        public void RemoveNode(T node)
         {
-            for (int i = 0; i < _replicate; i++)
+            for (int i = 0; i < this.ReplacateCount; i++)
             {
                 int hash = MurmurHash2.BetterHash(node.GetHashCode().ToString() + i);
                 if (!circle.Remove(hash))
                 {
-                    //throw new Exception("can not remove a node that not added");
+                    throw new InvalidOperationException("can not remove a node that not added");
                 }
             }
             ayKeys = circle.Keys.ToArray();
@@ -115,7 +140,7 @@ namespace WSQ003.ConsistentHash.Library
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public T GetNode_slow(String key)
+        private T GetNode_slow(String key)
         {
             int hash = MurmurHash2.BetterHash(key);
             if (circle.ContainsKey(hash))
@@ -136,10 +161,10 @@ namespace WSQ003.ConsistentHash.Library
         /// return the index of first item that >= val, if not exist, return 0.
         /// </summary>
         /// <param name="ay">ay should be ordered array</param>
-        /// <param name="val"></param>
+        /// <param name="val">find first mapped node</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">Stuff that should never happen</exception>
-        int First_ge(int[] ay, int val)
+        private static int First_ge(int[] ay, int val)
         {
             int begin = 0;
             int end = ay.Length - 1;
@@ -173,12 +198,16 @@ namespace WSQ003.ConsistentHash.Library
             return end;
         }
 
+        #endregion
+
+        #region "Map a key onto a node"
+
         /// <summary>
         /// Get Key
         /// </summary>
         /// <param name="key">(key)</param>
         /// <returns>Type of <c>T</c></returns>
-        public T GetNode(String key)
+        public T MapKeyToNode(string key)
         {
             //return GetNode_slow(key);
 
@@ -190,5 +219,8 @@ namespace WSQ003.ConsistentHash.Library
 
             return circle[ayKeys[first]];
         }
+
+        #endregion
     }
+
 }

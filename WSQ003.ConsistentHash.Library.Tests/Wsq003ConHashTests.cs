@@ -6,9 +6,12 @@ using WSQ003.ConsistentHash.Library.Tests.Models;
 
 namespace WSQ003.ConsistentHash.Library.Tests
 {
+    /// <summary>
+    /// For of test from WSQ003
+    /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class ConHashTests
+    public class Wsq003ConHashTests
     {
         #region "Test Boilerplate"
         private static TestContext _testContext;
@@ -24,7 +27,7 @@ namespace WSQ003.ConsistentHash.Library.Tests
         /// See <![CDATA[https://github.com/wsq003/consistent-hash/blob/master/test.cs]]>
         /// </summary>
         [TestMethod]
-        public void Test_From_WSQ003()
+        public void Test_From_WSQ003_01()
         {
             int search = 100000;
             DateTime start = DateTime.UtcNow;
@@ -35,24 +38,23 @@ namespace WSQ003.ConsistentHash.Library.Tests
                 servers.Add(new Server(i));
             }
 
-            ConsistentHash<Server> ch = new();
-            ch.Init(servers);
+            ConsistentHash<Server> ch = new(servers);
 
             SortedList<int, int> ay1 = new();
             for (int i = 0; i < search; i++)
             {
-                int temp = ch.GetNode(i.ToString()).Id;
+                int temp = ch.MapKeyToNode(i.ToString()).Id;
                 ay1[i] = temp;
             }
 
             TimeSpan ts = DateTime.UtcNow - start;
             _testContext.WriteLine(search + " each use macro seconds: " + (ts.TotalMilliseconds / search) * 1000);
 
-            ch.Remove(servers[1]);
+            ch.RemoveNode(servers[1]);
             SortedList<int, int> ay2 = new();
             for (int i = 0; i < search; i++)
             {
-                int temp = ch.GetNode(i.ToString()).Id;
+                int temp = ch.MapKeyToNode(i.ToString()).Id;
 
                 ay2[i] = temp;
             }

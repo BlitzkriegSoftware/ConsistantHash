@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WSQ003.ConsistentHash.Library</name>
+    </assembly>
+    <members>
+        <member name="T:WSQ003.ConsistentHash.Library.BytetoUInt32Converter">
+            <summary>
+            BytetoUInt32Converter
+            </summary>
+        </member>
+        <member name="F:WSQ003.ConsistentHash.Library.BytetoUInt32Converter.Bytes">
+            <summary>
+            Bytes
+            </summary>
+        </member>
+        <member name="F:WSQ003.ConsistentHash.Library.BytetoUInt32Converter.UInts">
+            <summary>
+            UInts
+            </summary>
+        </member>
+        <member name="T:WSQ003.ConsistentHash.Library.ConsistentHash`1">
+            <summary>
+            Consistant Hash of <c>T</c>
+            </summary>
+            <typeparam name="T">Type</typeparam>
+        </member>
+        <member name="F:WSQ003.ConsistentHash.Library.ConsistentHash`1.circle">
+            <summary>
+            Sorted Dictionary Representing Circle for Consistant Hash
+            </summary>
+        </member>
+        <member name="F:WSQ003.ConsistentHash.Library.ConsistentHash`1.DefaultReplicateCount">
+            <summary>
+            default: replicate count
+            </summary>
+        </member>
+        <member name="P:WSQ003.ConsistentHash.Library.ConsistentHash`1.ReplacateCount">
+            <summary>
+            Replacate Count
+            </summary>
+        </member>
+        <member name="F:WSQ003.ConsistentHash.Library.ConsistentHash`1.ayKeys">
+            <summary>
+            cache the ordered keys for better performance
+            </summary>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.#ctor">
+            <summary>
+            CTOR
+            <para>Follow by a call to <c>Init</c></para>
+            </summary>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            CTOR
+            </summary>
+            <param name="nodes">List of Thing to CH</param>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Int32)">
+            <summary>
+            CTOR
+            </summary>
+            <param name="nodes">List of Thing to CH</param>
+            <param name="replacateCount">Replicates</param>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.Init(System.Collections.Generic.IEnumerable{`0},System.Int32)">
+            <summary>
+            Init
+            </summary>
+            <param name="nodes">List of T</param>
+            <param name="replicateCount">Replacate Count</param>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.AddNode(`0)">
+            <summary>
+            AddNode
+            </summary>
+            <param name="node">Node</param>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.AddNode(`0,System.Boolean)">
+            <summary>
+            AddNode node of type <c>T</c>
+            </summary>
+            <param name="node"></param>
+            <param name="updateKeyArray">true by default</param>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.RemoveNode(`0)">
+            <summary>
+            Remove Node 
+            </summary>
+            <param name="node">of <c>T</c></param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.GetNode_slow(System.String)">
+            <summary>
+            GetNode_slow
+            <para>
+            we keep this function just for performance compare
+            </para>
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.First_ge(System.Int32[],System.Int32)">
+            <summary>
+            return the index of first item that >= val, if not exist, return 0.
+            </summary>
+            <param name="ay">ay should be ordered array</param>
+            <param name="val">find first mapped node</param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">Stuff that should never happen</exception>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.ConsistentHash`1.MapKeyToNode(System.String)">
+            <summary>
+            Get Key
+            </summary>
+            <param name="key">(key)</param>
+            <returns>Type of <c>T</c></returns>
+        </member>
+        <member name="T:WSQ003.ConsistentHash.Library.MurmurHash2">
+            <summary>
+            <![CDATA[https://github.com/wsq003/consistent-hash]]>
+            </summary>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.Hash(System.Byte[])">
+            <summary>
+            CTOR w. <c>defaultSeed</c>
+            </summary>
+            <param name="data">(data)</param>
+            <returns>hash</returns>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.Hash(System.Byte[],System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="data">(data)</param>
+            <param name="seed">seed</param>
+            <returns>hash</returns>
+        </member>
+        <member name="M:WSQ003.ConsistentHash.Library.MurmurHash2.BetterHash(System.String)">
+            <summary>
+            BetterHash
+            <para>
+            default String.GetHashCode() can't well spread strings like "1", "2", "3"
+            </para>
+            </summary>
+            <param name="key">Key</param>
+            <returns>Better Hash</returns>
+        </member>
+    </members>
+</doc>
